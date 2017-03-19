@@ -10,7 +10,7 @@ var url_heart = chrome.runtime.getURL('images/blackAndWhite/2764.svg');
 
 var $button = 
 	$("<div><button class='btn btn-info'>😅</button>" +
-	"<button class='btn btn-info'>😊</button>" +
+	"<button id='btn-emoji-smiley' class='btn btn-info'>😊</button>" +
 	"<button class='btn btn-info'>😲</button>" +
 	"</div>");
 
@@ -23,6 +23,10 @@ var $button =
 */
 
 $("table").append($button);
+
+$('#btn-emoji-smiley').click(function() {
+	alert(':)');
+});
 
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
