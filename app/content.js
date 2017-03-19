@@ -22,7 +22,8 @@ var $button =
 	"</div>");
 */
 
-$("table").append($button);
+$(".esc-lead-article-title-wrapper")
+		.append($button);
 
 $('#btn-emoji-smiley').click(function() {
 	alert(':)');
