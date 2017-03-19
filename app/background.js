@@ -1,28 +1,19 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+// background.js
 
 // Called when the user clicks on the browser action.
-
-// Todo: Add logic here...
-
-
-// Sample code to see how the extension interacts with the browser
-
 chrome.browserAction.onClicked.addListener(function(tab) {
-  var action_url = "javascript:window.print();";
-  chrome.tabs.update(tab.id, {url: action_url});
+	// Send a message to the active tab
+	chrome.tabs.query(
+		{active: true, currentWindow: true}, 
+		function(tabs) {
+			var activeTab = tabs[0];
+			chrome.tabs.sendMessage(activeTab.id, {"message": "clicked_browser_action"});
+		});
 });
 
-var function readPageHeader ()
-{
-
-}
-var function updateDictionary ()
-{
-
-}
-var function emojiScore ()
-{
-
-}
+// This block is new!
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	if( request.message === "open_new_tab" ) {
+		chrome.tabs.create({"url": request.url});
+	}
+});
