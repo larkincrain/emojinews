@@ -22,12 +22,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		xhr.setRequestHeader("Content-length", postdata.length);
 
 		xhr.onreadystatechange = function() {
-
-			alert('state change' + xhr.readyState);
-
 			if (xhr.readyState == 4) {
-		  		alert('source: ' + request.source + ": " + xhr.responseText);
-		  	
+		    	// WARNING! Might be evaluating an evil script!
+		    	var resp = eval("(" + xhr.responseText + ")");
+			}
+		}
+
+		xhr.send(postdata);
+	} else if (request.message == "add_emoji") {
+		var postdata = 'source=' + request.source + '&headline='+request.headline + "&emoji=" + request.emoji;
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST", "http://198.199.126.203:8005/api/emojis", true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.setRequestHeader("Content-length", postdata.length);
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
 		    	// WARNING! Might be evaluating an evil script!
 		    	var resp = eval("(" + xhr.responseText + ")");
 			}

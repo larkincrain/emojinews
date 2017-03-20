@@ -4,24 +4,32 @@ var url_frown = chrome.runtime.getURL('images/blackAndWhite/263a.svg');
 var url_heart = chrome.runtime.getURL('images/blackAndWhite/2764.svg');
 
 var $button = 
-	$("<div><button class='btn btn-info'>😅</button>" +
-	"<button id='btn-emoji-smiley' class='btn btn-info'>😊</button>" +
-	"<button class='btn btn-info'>😲</button>" +
-	"</div>");
+	$("<div>" + 
+		"<button data-emoji='sweaty'class='btn btn-emoji'>😅</button>" +
+		"<button data-emoji='blush' class='btn btn-emoji'>😊</button>" +
+		"<button data-emoji='shocky' class='btn btn-emoji'>😲</button>" +
+		"</div>"
+	);
 
 var $summary =
 	$("<div>😀😟😡</div>")
 
 $(".esc-lead-article-title-wrapper").each( function(index) {
 	// call our server to see if we have this article already
-	var source = $(this).next(".esc-lead-article-source-wrapper")
-		.children("table")
-			.children("tbody")
-				.children("tr")
-					.children(".source-cell")
-						.children(".al-attribution-source")
-							.html();
-	var headline = $(this).children("h2").children(".article").children(".titletext").html();
+	var source = $(this)
+		.next(".esc-lead-article-source-wrapper")
+			.children("table")
+				.children("tbody")
+					.children("tr")
+						.children(".source-cell")
+							.children(".al-attribution-source")
+								.html();
+
+	var headline = $(this)
+		.children("h2")
+			.children(".article")
+				.children(".titletext")
+					.html();
 
 	chrome.runtime.sendMessage({"message": "add_article", "source": source, "headline": headline});
 
@@ -37,9 +45,38 @@ $(".esc-lead-article-title-wrapper")
 $(".esc-lead-article-title")
 		.append($summary);
 
-$('#btn-emoji-smiley').click(function() {
+$('.btn-emoji').click(function() {
+	var emoji = $(this).data('emoji');
 
-	alert(':)');
+	var headline = $(this)
+		.parent()
+			.parent()
+				.children(".esc-lead-article-title")
+					.children(".article")
+						.children(".titletext").html()
+
+	var source = $(this)
+		.parent()
+			.parent()
+				.parent()
+					.children(".esc-lead-article-source-wrapper")
+						.children("table")
+							.children("tbody")
+								.children("tr")
+									.children(".source-cell")
+										.children(".al-attribution-source")
+											.html();
+
+	console.log('source: ' + source);
+	console.log('headline: ' + headline);
+	console.log('emoji: ' + emoji);		
+
+	chrome.runtime.sendMessage({
+		"message": "add_emoji", 
+		"source": source,
+		"headline": headline,
+		"emoji": emoji
+	});	
 });
 
 chrome.runtime.onMessage.addListener(
