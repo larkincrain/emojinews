@@ -22,7 +22,7 @@
 
   "browser_action": {
       "default_title": "EmojiNews",
-      "default_icon": "print_16x16.png"
+      "default_icon": "smiling-emoticon-square-face.png"
   },
   "manifest_version": 2
 }
