@@ -31,8 +31,12 @@ var article_count = 0;
 💋 -kiss
 */
 
+var $hideButton = 
+	$("<div><span class='showHide'>🙂</span></div>"
+	);
+
 var $buttons = 
-	$("<div>" + 
+	$("<div class='emojis'>" + 
 		"<button data-emoji='grin'class='btn btn-emoji'>😀</button>" +
 		"<button data-emoji='goodcry'class='btn btn-emoji'>😂</button>" +
 		"<button data-emoji='wink'class='btn btn-emoji'>😉</button>" +
@@ -89,6 +93,11 @@ $(".esc-lead-article-title-wrapper").each( function(index) {
 })
 
 $(".esc-lead-article-title-wrapper")
+	.append($hideButton);
+
+$buttons.hide();
+
+$(".esc-lead-article-title-wrapper")
 		.append($buttons);
 
 $(".esc-lead-article-title").each( function(index) {
@@ -120,6 +129,20 @@ $(".esc-lead-article-title").each( function(index) {
 
 	article_count ++;
 });
+
+$('.showHide').click(function() {
+
+	if ($('.emojis').css('display') == 'none') {
+		$('.emojis').show();
+		console.log('show');
+	}
+	else {
+		$('.emojis').hide();
+		console.log('hide');
+
+	}
+
+})
 
 $('.btn-emoji').click(function() {
 	var emoji = $(this).data('emoji');
