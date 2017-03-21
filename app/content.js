@@ -9,9 +9,6 @@ var $button =
 		"</div>"
 	);
 
-var $summary =
-	$("<div class=''></div>")
-
 $(".esc-lead-article-title-wrapper").each( function(index) {
 	// call our server to see if we have this article already
 	var source = $(this)
@@ -64,7 +61,7 @@ $(".esc-lead-article-title").each( function(index) {
 		"article_count": article_count
 	});
 
-	$summary.removeClass().addClass("summary-" + article_count);
+	var $summary = $("<div class='summary-" + article_count + "'></div>")
 	$(this).append($summary);	
 
 	article_count ++;
@@ -112,13 +109,7 @@ chrome.runtime.onMessage.addListener(
 		// This line is new!
 	    chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
 	} else if (request.message == "got_summary") {
-		console.log('got a summary: ');
-		console.log(request.emojiHtml);
-		console.log(request.article_count);
-
 		var emojiHtml = request.emojiHtml;
-
-		//if (request.emojis.)
 
 		//add the summary to the element
 		$(".summary-" + request.article_count).html(emojiHtml);
