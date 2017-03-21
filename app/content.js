@@ -98,7 +98,9 @@ $('.btn-emoji').click(function() {
 		"source": source,
 		"headline": headline,
 		"emoji": emoji
-	});	
+	});
+
+	refreshSummaries();	
 });
 
 chrome.runtime.onMessage.addListener(
@@ -148,7 +150,7 @@ function refreshSummaries() {
 			"article_count": article_count
 		});
 
-		var $summary = $("<div class='summary-" + article_count + "'></div>")
+		var $summary = $("<div class='summary summary-" + article_count + "'></div>")
 		$(this).append($summary);	
 
 		article_count ++;
