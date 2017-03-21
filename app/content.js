@@ -152,9 +152,14 @@ $('.btn-emoji').click(function() {
 		"source": source,
 		"headline": headline,
 		"emoji": emoji
+	}, function(data) {
+		setTimeout(function(){
+			refreshSummaries();
+		}, 800);
+		
 	});
 
-	refreshSummaries();	
+	//refreshSummaries();	
 });
 
 chrome.runtime.onMessage.addListener(
