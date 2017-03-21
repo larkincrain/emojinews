@@ -1,7 +1,7 @@
 // content.js
 var article_count = 0;
 
-var $button = 
+var $buttons = 
 	$("<div>" + 
 		"<button data-emoji='sweaty'class='btn btn-emoji'>😅</button>" +
 		"<button data-emoji='blush' class='btn btn-emoji'>😊</button>" +
@@ -35,7 +35,7 @@ $(".esc-lead-article-title-wrapper").each( function(index) {
 })
 
 $(".esc-lead-article-title-wrapper")
-		.append($button);
+		.append($buttons);
 
 $(".esc-lead-article-title").each( function(index) {
 	//first make a call to get the summary
@@ -61,11 +61,11 @@ $(".esc-lead-article-title").each( function(index) {
 		"article_count": article_count
 	});
 
-	var $summary = $("<div class='summary-" + article_count + "'></div>")
+	var $summary = $("<div class='summary summary-" + article_count + "'></div>")
 	$(this).append($summary);	
 
 	article_count ++;
-})
+});
 
 $('.btn-emoji').click(function() {
 	var emoji = $(this).data('emoji');
@@ -115,3 +115,42 @@ chrome.runtime.onMessage.addListener(
 		$(".summary-" + request.article_count).html(emojiHtml);
 	}
 });
+
+function refreshSummaries() {
+
+	// reset the article count for the refresh of the page summaries
+	article_count = 0;
+
+	//remove all elements with the class summary
+	$(".summary").remove();	
+
+	$(".esc-lead-article-title").each( function(index) {
+		//first make a call to get the summary
+		var source = $(this)
+			.parent()
+				.next(".esc-lead-article-source-wrapper")
+					.children("table")
+						.children("tbody")
+							.children("tr")
+								.children(".source-cell")
+									.children(".al-attribution-source")
+										.html();
+
+		var headline = $(this)
+				.children(".article")
+					.children(".titletext")
+						.html();
+
+		chrome.runtime.sendMessage({
+			"message": "get_summary", 
+			"source": source, 
+			"headline": headline, 
+			"article_count": article_count
+		});
+
+		var $summary = $("<div class='summary-" + article_count + "'></div>")
+		$(this).append($summary);	
+
+		article_count ++;
+	});
+}
