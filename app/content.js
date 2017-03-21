@@ -1,7 +1,5 @@
 // content.js
-var url_smile = chrome.runtime.getURL('images/blackAndWhite/2639.svg');
-var url_frown = chrome.runtime.getURL('images/blackAndWhite/263a.svg');
-var url_heart = chrome.runtime.getURL('images/blackAndWhite/2764.svg');
+var article_count = 0;
 
 var $button = 
 	$("<div>" + 
@@ -12,7 +10,7 @@ var $button =
 	);
 
 var $summary =
-	$("<div>😀😟😡</div>")
+	$("<div class=''></div>")
 
 $(".esc-lead-article-title-wrapper").each( function(index) {
 	// call our server to see if we have this article already
@@ -59,9 +57,17 @@ $(".esc-lead-article-title").each( function(index) {
 				.children(".titletext")
 					.html();
 
-	chrome.runtime.sendMessage({"message": "get_summary", "source": source, "headline": headline});
+	chrome.runtime.sendMessage({
+		"message": "get_summary", 
+		"source": source, 
+		"headline": headline, 
+		"article_count": article_count
+	});
 
+	$summary.removeClass().addClass("summary-" + article_count);
 	$(this).append($summary);	
+
+	article_count ++;
 })
 
 $('.btn-emoji').click(function() {
@@ -107,6 +113,14 @@ chrome.runtime.onMessage.addListener(
 	    chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
 	} else if (request.message == "got_summary") {
 		console.log('got a summary: ');
-		console.log(request.response);
+		console.log(request.emojiHtml);
+		console.log(request.article_count);
+
+		var emojiHtml = request.emojiHtml;
+
+		//if (request.emojis.)
+
+		//add the summary to the element
+		$(".summary-" + request.article_count).html(emojiHtml);
 	}
 });

@@ -61,9 +61,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			if (xhr.readyState == 4) {
 		    	// WARNING! Might be evaluating an evil script!
 		    	//var resp = eval("(" + xhr.responseText + ")");
-		    	alert('got a summary: ' + xhr.responseText);
+		    	//alert('got a summary: ' + xhr.responseText);
 
 		    	// here we need to parse out the emojis from the response and create an array of them to return 
+		    	var emojis = JSON.parse(xhr.responseText)[0].emojis;
+		    	var emojiHtml = "";
+
+		    	for(var count = 0; count < emojis.length; count ++) {
+		    		if(emojis[count].emoji == "blush")
+		    			emojiHtml += "😊";
+		    		else if(emojis[count].emoji == "shocky")
+	    				emojiHtml += "😲"
+	    			else if(emojis[count].emoji == "sweaty")
+	    				emojiHtml += "😅"
+		    	}
+		    	
+		    	//alert('got the emojis');
+		    	//alert(JSON.parse(xhr.responseText)[0].emojis);
 
 		    	// Send a message to the active tab
 				chrome.tabs.query(
@@ -71,11 +85,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 					function(tabs) {
 						var activeTab = tabs[0];
 
-
-
 						chrome.tabs.sendMessage(activeTab.id, {
 							"message": "got_summary",
-							"response": xhr.responseText
+							"response": xhr.responseText,
+							"emojiHtml": emojiHtml,
+							"source": request.source,
+							"headline": request.headline,
+							"article_count": request.article_count
 						});
 					});
 
