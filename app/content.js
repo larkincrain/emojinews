@@ -42,8 +42,27 @@ $(".esc-lead-article-title-wrapper").each( function(index) {
 $(".esc-lead-article-title-wrapper")
 		.append($button);
 
-$(".esc-lead-article-title")
-		.append($summary);
+$(".esc-lead-article-title").each( function(index) {
+	//first make a call to get the summary
+	var source = $(this)
+		.parent()
+			.next(".esc-lead-article-source-wrapper")
+				.children("table")
+					.children("tbody")
+						.children("tr")
+							.children(".source-cell")
+								.children(".al-attribution-source")
+									.html();
+
+	var headline = $(this)
+			.children(".article")
+				.children(".titletext")
+					.html();
+
+	chrome.runtime.sendMessage({"message": "get_summary", "source": source, "headline": headline});
+
+	$(this).append($summary);	
+})
 
 $('.btn-emoji').click(function() {
 	var emoji = $(this).data('emoji');
@@ -86,5 +105,8 @@ chrome.runtime.onMessage.addListener(
 
 		// This line is new!
 	    chrome.runtime.sendMessage({"message": "open_new_tab", "url": firstHref});
+	} else if (request.message == "got_summary") {
+		console.log('got a summary: ');
+		console.log(request.response);
 	}
 });

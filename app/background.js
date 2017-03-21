@@ -25,6 +25,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			if (xhr.readyState == 4) {
 		    	// WARNING! Might be evaluating an evil script!
 		    	var resp = eval("(" + xhr.responseText + ")");
+
+		    	chrome.tabs.sendMessage(
+		    		activeTab.id,
+		    		{
+		    			"data": resp
+		    		});
 			}
 		}
 
@@ -40,6 +46,39 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			if (xhr.readyState == 4) {
 		    	// WARNING! Might be evaluating an evil script!
 		    	var resp = eval("(" + xhr.responseText + ")");
+			}
+		}
+
+		xhr.send(postdata);
+	} else if (request.message == "get_summary") {
+		var postdata = 'source=' + request.source + '&headline='+request.headline;
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", "http://198.199.126.203:8005/api/articles/" + encodeURIComponent(request.source) + "/" + encodeURIComponent(request.headline), true);
+		xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhr.setRequestHeader("Content-length", postdata.length);
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4) {
+		    	// WARNING! Might be evaluating an evil script!
+		    	//var resp = eval("(" + xhr.responseText + ")");
+		    	alert('got a summary: ' + xhr.responseText);
+
+		    	// here we need to parse out the emojis from the response and create an array of them to return 
+
+		    	// Send a message to the active tab
+				chrome.tabs.query(
+					{active: true, currentWindow: true}, 
+					function(tabs) {
+						var activeTab = tabs[0];
+
+
+
+						chrome.tabs.sendMessage(activeTab.id, {
+							"message": "got_summary",
+							"response": xhr.responseText
+						});
+					});
+
 			}
 		}
 
