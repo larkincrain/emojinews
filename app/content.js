@@ -1,11 +1,65 @@
 // content.js
 var article_count = 0;
 
+/*
+😀 -grin
+😂 -goodcry
+😉 -wink
+😆 -lol
+😎 -sunglasses
+😍 -inlove
+😘 -smooch
+🙂 -smile
+😊 -blush
+🤔 -ponder
+😐 -neutral
+🙄 -ugh
+😏 -smirk
+😮 -oface
+😕 -hmm
+😞 -disappointed
+😖 -cringe
+😲 -shock
+😭 -bigcry
+😨 -scare
+😇 -halo
+🤖 -roboto
+💩 -poop
+🖕 -middlefinger
+🤘 -horns
+🙌 -praise
+💋 -kiss
+*/
+
 var $buttons = 
 	$("<div>" + 
-		"<button data-emoji='sweaty'class='btn btn-emoji'>😅</button>" +
-		"<button data-emoji='blush' class='btn btn-emoji'>😊</button>" +
-		"<button data-emoji='shocky' class='btn btn-emoji'>😲</button>" +
+		"<button data-emoji='grin'class='btn btn-emoji'>😀</button>" +
+		"<button data-emoji='goodcry'class='btn btn-emoji'>😂</button>" +
+		"<button data-emoji='wink'class='btn btn-emoji'>😉</button>" +
+		"<button data-emoji='lol'class='btn btn-emoji'>😆</button>" +
+		"<button data-emoji='sunglasses'class='btn btn-emoji'>😎</button>" +
+		"<button data-emoji='inlove'class='btn btn-emoji'>😍</button>" +
+		"<button data-emoji='smooch'class='btn btn-emoji'>😘</button>" +
+		"<button data-emoji='smile'class='btn btn-emoji'>🙂</button>" +
+		"<button data-emoji='blush'class='btn btn-emoji'>😊</button>" +
+		"<button data-emoji='ponder'class='btn btn-emoji'>🤔</button>" +
+		"<button data-emoji='neutral'class='btn btn-emoji'>😐</button>" +
+		"<button data-emoji='ugh'class='btn btn-emoji'>🙄</button>" +
+		"<button data-emoji='smirk'class='btn btn-emoji'>😏</button>" +
+		"<button data-emoji='oface'class='btn btn-emoji'>😮</button>" +
+		"<button data-emoji='hmm'class='btn btn-emoji'>😕</button>" +
+		"<button data-emoji='disappointed'class='btn btn-emoji'>😞</button>" +
+		"<button data-emoji='cringe'class='btn btn-emoji'>😖</button>" +
+		"<button data-emoji='shock'class='btn btn-emoji'>😲</button>" +
+		"<button data-emoji='bigcry'class='btn btn-emoji'>😭</button>" +
+		"<button data-emoji='scare'class='btn btn-emoji'>😨</button>" +
+		"<button data-emoji='halo'class='btn btn-emoji'>😇</button>" +
+		"<button data-emoji='roboto'class='btn btn-emoji'>🤖</button>" +
+		"<button data-emoji='poop'class='btn btn-emoji'>💩</button>" +
+		"<button data-emoji='middlefinger'class='btn btn-emoji'>🖕</button>" +
+		"<button data-emoji='horns'class='btn btn-emoji'>🤘</button>" +
+		"<button data-emoji='praise'class='btn btn-emoji'>🙌</button>" +
+		"<button data-emoji='kiss'class='btn btn-emoji'>💋</button>" +
 		"</div>"
 	);
 

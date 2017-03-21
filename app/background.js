@@ -68,14 +68,63 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		    	var emojiHtml = "";
 
 		    	for(var count = 0; count < emojis.length; count ++) {
-		    		if(emojis[count].emoji == "blush")
+
+		    		if(emojis[count].emoji == "grin") 
+		    			emojiHtml += "😀";
+		    		else if(emojis[count].emoji == "goodcry") 
+		    			emojiHtml += "😂";
+		    		else if(emojis[count].emoji == "wink") 
+		    			emojiHtml += "😉";
+		    		else if(emojis[count].emoji == "lol") 
+		    			emojiHtml += "😆";
+		    		else if(emojis[count].emoji == "sunglasses") 
+		    			emojiHtml += "😎";
+		    		else if(emojis[count].emoji == "inlove") 
+		    			emojiHtml += "😍";
+		    		else if(emojis[count].emoji == "smooch") 
+		    			emojiHtml += "😘";
+		    		else if(emojis[count].emoji == "smile") 
+		    			emojiHtml += "🙂";
+		    		else if(emojis[count].emoji == "blush") 
 		    			emojiHtml += "😊";
-		    		else if(emojis[count].emoji == "shocky")
-	    				emojiHtml += "😲"
-	    			else if(emojis[count].emoji == "sweaty")
-	    				emojiHtml += "😅"
+		    		else if(emojis[count].emoji == "ponder") 
+		    			emojiHtml += "🤔";
+		    		else if(emojis[count].emoji == "neutral") 
+		    			emojiHtml += "😐";
+		    		else if(emojis[count].emoji == "ugh") 
+		    			emojiHtml += "🙄";
+		    		else if(emojis[count].emoji == "smirk") 
+		    			emojiHtml += "😏";
+		    		else if(emojis[count].emoji == "oface") 
+		    			emojiHtml += "😮";
+		    		else if(emojis[count].emoji == "hmm") 
+		    			emojiHtml += "😕";
+		    		else if(emojis[count].emoji == "disappointed") 
+		    			emojiHtml += "😞";
+		    		else if(emojis[count].emoji == "cringe") 
+		    			emojiHtml += "😖";
+		    		else if(emojis[count].emoji == "shock") 
+		    			emojiHtml += "😲";
+		    		else if(emojis[count].emoji == "bigcry") 
+		    			emojiHtml += "😭";
+		    		else if(emojis[count].emoji == "scare") 
+		    			emojiHtml += "😨";
+		    		else if(emojis[count].emoji == "halo") 
+		    			emojiHtml += "😇";
+		    		else if(emojis[count].emoji == "roboto") 
+		    			emojiHtml += "🤖";
+		    		else if(emojis[count].emoji == "poop") 
+		    			emojiHtml += "💩";
+		    		else if(emojis[count].emoji == "middlefinger") 
+		    			emojiHtml += "🖕";
+		    		else if(emojis[count].emoji == "horns") 
+		    			emojiHtml += "🤘";
+		    		else if(emojis[count].emoji == "praise") 
+		    			emojiHtml += "🙌";
+		    		else if(emojis[count].emoji == "kiss") 
+		    			emojiHtml += "💋";
 		    	}
-		    	
+
 		    	//alert('got the emojis');
 		    	//alert(JSON.parse(xhr.responseText)[0].emojis);
 
