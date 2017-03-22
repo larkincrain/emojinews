@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		    	//alert('got a summary: ' + xhr.responseText);
 
 		    	// here we need to parse out the emojis from the response and create an array of them to return 
-		    	var emojis = JSON.parse(xhr.responseText)[0].emojis;
+		    	var emojis = JSON.parse(xhr.responseText).popularEmojis;
 		    	var emojiHtml = "";
 
 		    	for(var count = 0; count < emojis.length; count ++) {
