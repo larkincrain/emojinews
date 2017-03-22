@@ -31,42 +31,6 @@ var article_count = 0;
 💋 -kiss
 */
 
-var $hideButton = 
-	$("<div><span class='showHide'>🙂</span></div>"
-	);
-
-var $buttons = 
-	$("<div class='emojis'>" + 
-		"<button data-emoji='grin'class='btn btn-emoji'>😀</button>" +
-		"<button data-emoji='goodcry'class='btn btn-emoji'>😂</button>" +
-		"<button data-emoji='wink'class='btn btn-emoji'>😉</button>" +
-		"<button data-emoji='lol'class='btn btn-emoji'>😆</button>" +
-		"<button data-emoji='sunglasses'class='btn btn-emoji'>😎</button>" +
-		"<button data-emoji='inlove'class='btn btn-emoji'>😍</button>" +
-		"<button data-emoji='smooch'class='btn btn-emoji'>😘</button>" +
-		"<button data-emoji='smile'class='btn btn-emoji'>🙂</button>" +
-		"<button data-emoji='blush'class='btn btn-emoji'>😊</button>" +
-		"<button data-emoji='ponder'class='btn btn-emoji'>🤔</button>" +
-		"<button data-emoji='neutral'class='btn btn-emoji'>😐</button>" +
-		"<button data-emoji='ugh'class='btn btn-emoji'>🙄</button>" +
-		"<button data-emoji='smirk'class='btn btn-emoji'>😏</button>" +
-		"<button data-emoji='oface'class='btn btn-emoji'>😮</button>" +
-		"<button data-emoji='hmm'class='btn btn-emoji'>😕</button>" +
-		"<button data-emoji='disappointed'class='btn btn-emoji'>😞</button>" +
-		"<button data-emoji='cringe'class='btn btn-emoji'>😖</button>" +
-		"<button data-emoji='shock'class='btn btn-emoji'>😲</button>" +
-		"<button data-emoji='bigcry'class='btn btn-emoji'>😭</button>" +
-		"<button data-emoji='scare'class='btn btn-emoji'>😨</button>" +
-		"<button data-emoji='halo'class='btn btn-emoji'>😇</button>" +
-		"<button data-emoji='roboto'class='btn btn-emoji'>🤖</button>" +
-		"<button data-emoji='poop'class='btn btn-emoji'>💩</button>" +
-		"<button data-emoji='middlefinger'class='btn btn-emoji'>🖕</button>" +
-		"<button data-emoji='horns'class='btn btn-emoji'>🤘</button>" +
-		"<button data-emoji='praise'class='btn btn-emoji'>🙌</button>" +
-		"<button data-emoji='kiss'class='btn btn-emoji'>💋</button>" +
-		"</div>"
-	);
-
 $(".esc-lead-article-title-wrapper").each( function(index) {
 	// call our server to see if we have this article already
 	var source = $(this)
@@ -92,13 +56,51 @@ $(".esc-lead-article-title-wrapper").each( function(index) {
 	// 	});
 })
 
-$(".esc-lead-article-title-wrapper")
-	.append($hideButton);
+$(".esc-lead-article-title-wrapper").each( function(index) {
 
-$buttons.hide();
+	var $hideButton = 
+		$("<div><span class='showHide' data-article='" + index + "'>🙂</span></div>");
 
-$(".esc-lead-article-title-wrapper")
-		.append($buttons);
+	$(this).append($hideButton);
+});
+
+$(".esc-lead-article-title-wrapper").each( function(index) {
+	var $buttons = 
+		$("<div class='emojis' data-article='" + index + "'>" + 
+			"<button data-emoji='grin'class='btn btn-emoji'>😀</button>" +
+			"<button data-emoji='goodcry'class='btn btn-emoji'>😂</button>" +
+			"<button data-emoji='wink'class='btn btn-emoji'>😉</button>" +
+			"<button data-emoji='lol'class='btn btn-emoji'>😆</button>" +
+			"<button data-emoji='sunglasses'class='btn btn-emoji'>😎</button>" +
+			"<button data-emoji='inlove'class='btn btn-emoji'>😍</button>" +
+			"<button data-emoji='smooch'class='btn btn-emoji'>😘</button>" +
+			"<button data-emoji='smile'class='btn btn-emoji'>🙂</button>" +
+			"<button data-emoji='blush'class='btn btn-emoji'>😊</button>" +
+			"<button data-emoji='ponder'class='btn btn-emoji'>🤔</button>" +
+			"<button data-emoji='neutral'class='btn btn-emoji'>😐</button>" +
+			"<button data-emoji='ugh'class='btn btn-emoji'>🙄</button>" +
+			"<button data-emoji='smirk'class='btn btn-emoji'>😏</button>" +
+			"<button data-emoji='oface'class='btn btn-emoji'>😮</button>" +
+			"<button data-emoji='hmm'class='btn btn-emoji'>😕</button>" +
+			"<button data-emoji='disappointed'class='btn btn-emoji'>😞</button>" +
+			"<button data-emoji='cringe'class='btn btn-emoji'>😖</button>" +
+			"<button data-emoji='shock'class='btn btn-emoji'>😲</button>" +
+			"<button data-emoji='bigcry'class='btn btn-emoji'>😭</button>" +
+			"<button data-emoji='scare'class='btn btn-emoji'>😨</button>" +
+			"<button data-emoji='halo'class='btn btn-emoji'>😇</button>" +
+			"<button data-emoji='roboto'class='btn btn-emoji'>🤖</button>" +
+			"<button data-emoji='poop'class='btn btn-emoji'>💩</button>" +
+			"<button data-emoji='middlefinger'class='btn btn-emoji'>🖕</button>" +
+			"<button data-emoji='horns'class='btn btn-emoji'>🤘</button>" +
+			"<button data-emoji='praise'class='btn btn-emoji'>🙌</button>" +
+			"<button data-emoji='kiss'class='btn btn-emoji'>💋</button>" +
+			"</div>"
+		);
+
+	$buttons.hide();
+
+	$(this).append($buttons);
+})
 
 $(".esc-lead-article-title").each( function(index) {
 	//first make a call to get the summary
@@ -132,17 +134,24 @@ $(".esc-lead-article-title").each( function(index) {
 
 $('.showHide').click(function() {
 
-	if ($('.emojis').css('display') == 'none') {
-		$('.emojis').show();
-		console.log('show');
+	//get the current 
+	var article_id = $(this).data('article')
+	var $emojiKeybaord = {};
+
+	//find the correct keyboard
+	$('.emojis').each( function(index) {
+		if( $(this).attr('data-article') == article_id) {
+			$emojiKeybaord = $(this);
+		}
+	});
+
+	if ($emojiKeybaord.css('display') == 'none') {
+		$emojiKeybaord.show();
 	}
 	else {
-		$('.emojis').hide();
-		console.log('hide');
-
+		$emojiKeybaord.hide();
 	}
-
-})
+});
 
 $('.btn-emoji').click(function() {
 	var emoji = $(this).data('emoji');
