@@ -59,7 +59,7 @@ $(".esc-lead-article-title-wrapper").each( function(index) {
 $(".esc-lead-article-title-wrapper").each( function(index) {
 
 	var $hideButton = 
-		$("<div><span class='showHide' data-article='" + index + "'>🙂</span></div>");
+		$("<div><span style='cursor: pointer;' class='showHide' data-article='" + index + "'>🙂</span></div>");
 
 	$(this).append($hideButton);
 });
